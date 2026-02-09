@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>SPL - Live Auction Status</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f6f8;
+      margin: 0;
+      padding: 20px;
+    }
+    .container {
+      max-width: 900px;
+      margin: auto;
+      background: #fff;
+      padding: 20px;
+      border-radius: 6px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+    h2 {
+      margin-top: 0;
+      text-align: center;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 15px;
+    }
+    th, td {
+      border: 1px solid #ddd;
+      padding: 10px;
+      text-align: left;
+    }
+    th {
+      background: #f0f0f0;
+    }
+    td.price {
+      text-align: right;
+      font-weight: bold;
+    }
+    .footer {
+      margin-top: 10px;
+      text-align: center;
+      font-size: 13px;
+      color: #666;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h2>🏏 SPL - Live Auction Status</h2>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Player Name</th>
+        <th>Team</th>
+        <th>Sold Price</th>
+      </tr>
+    </thead>
+    <tbody id="rows"></tbody>
+  </table>
+
+  <div class="footer">
+    Auto-refresh every 5 seconds
+  </div>
+</div>
+
+<script>
+  // 🔴 PASTE YOUR GOOGLE APPS SCRIPT URL HERE
+  const API_URL = "https://script.google.com/macros/s/AKfycbyrPF0BCXLTfECGcCo1V9vRUDdmBsJTyl0jgt1nMy3EW_CwpUrPEDNBxncMTA0luPFaGQ/exec";
+
+  async function loadData() {
+    try {
+      const res = await fetch(API_URL, { cache: "no-store" });
+      const data = await res.json();
+
+      const tbody = document.getElementById("rows");
+      tbody.innerHTML = "";
+
+      // Show latest entries on top
+      data.rows.reverse().forEach(row => {
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td>${row["Player Name"] || ""}</td>
+          <td>${row["Team"] || ""}</td>
+          <td class="price">₹${row["Sold Price"] || ""}</td>
+        `;
+        tbody.appendChild(tr);
+      });
+    } catch (e) {
+      console.error("Error loading data", e);
+    }
+  }
+
+  loadData();
+  setInterval(loadData, 5000);
+</script>
+
+</body>
+</html>
