@@ -33,7 +33,6 @@
       margin: 0 0 25px 0;
       letter-spacing: 0.5px;
 
-      /* Gradient Color Effect */
       background: linear-gradient(90deg, #1d2671, #c33764);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
@@ -51,22 +50,34 @@
       font-size: 16px;
     }
 
-    /* ✅ Highlight + Center align table headers */
+    /* ✅ Highlight + Center align headers */
     th {
       background: #f0f0f0;
       font-weight: 800;
       text-align: center;
       font-family: "Poppins", Arial, sans-serif;
-      font-size: 16px;
     }
 
     td {
-      text-align: center; /* ✅ Center align table values too */
+      text-align: center;
     }
 
     td.price {
       font-weight: bold;
       color: #222;
+    }
+
+    /* ✅ Hover Effect */
+    tbody tr:hover {
+      background: #f9f9ff;
+      transition: 0.2s;
+    }
+
+    /* ✅ Highlight Latest Sold Player Row */
+    .latest {
+      background: #fff3cd !important;
+      font-weight: bold;
+      border-left: 6px solid #ff9800;
     }
 
     .footer {
@@ -83,7 +94,6 @@
 
 <div class="container">
 
-  <!-- ✅ Updated Title -->
   <h2 class="title">🏏 SPL - Season 2 Live Auction Updates</h2>
 
   <!-- Live Auction Table -->
@@ -117,14 +127,23 @@
       const tbody = document.getElementById("rows");
       tbody.innerHTML = "";
 
-      // Show latest entries first
-      (data.rows || []).slice().reverse().forEach(row => {
+      // Reverse so latest appears first
+      const rows = (data.rows || []).slice().reverse();
+
+      rows.forEach((row, index) => {
         const tr = document.createElement("tr");
+
+        // ✅ Add highlight class to first/latest row
+        if (index === 0) {
+          tr.classList.add("latest");
+        }
+
         tr.innerHTML = `
           <td>${row["Player Name"] || ""}</td>
           <td>${row["Team"] || ""}</td>
           <td class="price">₹${row["Sold Price"] || ""}</td>
         `;
+
         tbody.appendChild(tr);
       });
 
@@ -133,7 +152,6 @@
     }
   }
 
-  // Load immediately + refresh every 5 seconds
   loadData();
   setInterval(loadData, 5000);
 </script>
