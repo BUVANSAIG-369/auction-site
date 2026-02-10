@@ -20,24 +20,54 @@
       margin: auto;
       background: #fff;
       padding: 25px;
-      border-radius: 10px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.12);
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
     }
 
-    /* ✅ Attractive Title Styling */
+    /* ✅ Main Title */
     .title {
       text-align: center;
-      font-family: "Poppins", "Segoe UI", Arial, sans-serif;
+      font-family: "Poppins", Arial, sans-serif;
       font-size: 36px;
       font-weight: 800;
-      margin: 0 0 25px 0;
+      margin-bottom: 15px;
       letter-spacing: 0.5px;
-
       background: linear-gradient(90deg, #1d2671, #c33764);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
 
+    /* ✅ Auction Completed Announcement Box */
+    .announcement {
+      padding: 18px;
+      border-radius: 14px;
+      text-align: center;
+      font-family: "Poppins", Arial, sans-serif;
+      margin-bottom: 20px;
+      background: linear-gradient(90deg, #ff512f, #dd2476);
+      color: white;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    }
+
+    .announcement h3 {
+      margin: 0;
+      font-size: 22px;
+      font-weight: 800;
+    }
+
+    .announcement p {
+      margin: 8px 0 0;
+      font-size: 16px;
+      font-weight: 600;
+      line-height: 1.4;
+    }
+
+    .announcement span {
+      font-weight: 800;
+      color: #ffe600;
+    }
+
+    /* ✅ Table Styling */
     table {
       width: 100%;
       border-collapse: collapse;
@@ -48,18 +78,13 @@
       border: 1px solid #ddd;
       padding: 12px;
       font-size: 16px;
+      text-align: center;
     }
 
-    /* ✅ Highlight + Center align headers */
     th {
       background: #f0f0f0;
       font-weight: 800;
-      text-align: center;
       font-family: "Poppins", Arial, sans-serif;
-    }
-
-    td {
-      text-align: center;
     }
 
     td.price {
@@ -67,19 +92,19 @@
       color: #222;
     }
 
-    /* ✅ Hover Effect */
     tbody tr:hover {
       background: #f9f9ff;
       transition: 0.2s;
     }
 
-    /* ✅ Highlight Latest Sold Player Row */
+    /* ✅ Highlight Latest Player */
     .latest {
       background: #fff3cd !important;
       font-weight: bold;
       border-left: 6px solid #ff9800;
     }
 
+    /* Footer */
     .footer {
       margin-top: 15px;
       text-align: center;
@@ -94,9 +119,24 @@
 
 <div class="container">
 
+  <!-- Title -->
   <h2 class="title">🏏 SPL - Season 2 Live Auction Updates</h2>
 
-  <!-- Live Auction Table -->
+  <!-- ✅ Colorful Announcement -->
+  <div class="announcement">
+    <h3>✅ SPL - Season 2 Auction is Completed 🎉</h3>
+
+    <p>
+      Matches will be held on <span>Feb 14th</span> and <span>Feb 15th</span><br>
+      Venue: <span>VBA Box Ground</span>
+    </p>
+
+    <p>
+      🔥 Get Ready for Competitive and Entertaining Matches! 🏆
+    </p>
+  </div>
+
+  <!-- Auction Table -->
   <table>
     <thead>
       <tr>
@@ -109,7 +149,7 @@
   </table>
 
   <div class="footer">
-    Auto-refresh every 5 seconds
+    Auction Completed — Final Squad List Displayed Above ✅
   </div>
 
 </div>
@@ -133,7 +173,7 @@
       rows.forEach((row, index) => {
         const tr = document.createElement("tr");
 
-        // ✅ Add highlight class to first/latest row
+        // Highlight first/latest row
         if (index === 0) {
           tr.classList.add("latest");
         }
@@ -152,8 +192,8 @@
     }
   }
 
+  // ✅ Auction Completed → Load only once (No Auto Refresh)
   loadData();
-  setInterval(loadData, 5000);
 </script>
 
 </body>
